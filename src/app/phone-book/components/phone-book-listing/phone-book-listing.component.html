@@ -1,0 +1,62 @@
+<mat-toolbar color='primary'>
+    <h3 (click)='goToHome()'>Phone BookList</h3>
+
+    <div class="menu-bar">
+        <button mat-button (click)="saveBtn()">
+            New Phone
+        </button>
+    </div>
+
+</mat-toolbar>
+<mat-toolbar color='primary'>
+    <mat-form-field>
+        <!-- <input matInput (keyup)="filterText($event.target.value)" placeholder="Filter" /> -->
+        <input matInput [(ngModel)]="search" placeholder="Filter" />
+        <button mat-button (click)="findByName()"> search</button>
+    </mat-form-field>
+</mat-toolbar>
+
+<div *ngIf="dataSource" class="table-container mat-elevation-z8">
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+        <!-- <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> _id </mat-header-cell>
+            <mat-cell *matCellDef="let record"> {{record.id}} </mat-cell>
+        </ng-container> -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let record"> {{record.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="phone number">
+            <mat-header-cell *matHeaderCellDef> Phone Number </mat-header-cell>
+            <mat-cell *matCellDef="let record"> {{record.phoneNumber}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <mat-cell *matCellDef="let record">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editBtn(record.id)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteBtn(record.id)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
+
+<div class="not-found" *ngIf="!dataSource">
+    <h3>No Phone Book Found</h3>
+</div>

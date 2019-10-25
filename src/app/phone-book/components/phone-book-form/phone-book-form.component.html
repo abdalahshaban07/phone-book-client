@@ -1,0 +1,25 @@
+<mat-card>
+    <h3>Create New Phone</h3>
+    <form [formGroup]="phoneForm" class="example-container" novalidate (ngSubmit)='onSubmit()'>
+        <mat-form-field color='primary'>
+            <input matInput placeholder="name" formControlName="name" />
+            <mat-error *ngIf="phoneForm.controls.name.invalid && phoneForm.controls.name.touched "> Name
+                is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field color='primary' matTooltip="Number Only" matTooltipPosition="left" [matTooltipHideDelay]="10" >
+            <input matInput  placeholder="Phone number" type="text" pattern="[0-9]*" formControlName="phoneNumber" />
+            <mat-error *ngIf="phoneForm.controls.phoneNumber.invalid"> Phone number is required</mat-error>
+
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button type="submit" color="accent" [disabled]="!phoneForm.valid">
+                Save
+            </button>
+            <button (click)="goHome()" mat-raised-button type="button">
+                Cancel
+            </button>
+        </div>
+    </form>
+</mat-card>
